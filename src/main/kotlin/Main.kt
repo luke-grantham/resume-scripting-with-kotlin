@@ -1,12 +1,21 @@
 package org.example
 
+import com.itextpdf.io.font.constants.StandardFonts
+import com.itextpdf.kernel.colors.DeviceGray
+import com.itextpdf.kernel.colors.DeviceRgb
+import com.itextpdf.kernel.font.PdfFontFactory
 import com.itextpdf.kernel.pdf.PdfDocument
 import com.itextpdf.kernel.pdf.PdfWriter
 import com.itextpdf.kernel.pdf.canvas.draw.SolidLine
 import com.itextpdf.layout.Document
+import com.itextpdf.layout.borders.Border
 import com.itextpdf.layout.element.*
 import com.itextpdf.layout.properties.TextAlignment
-import org.example.ResumeMaker.Companion.addSkillSection
+import com.itextpdf.layout.properties.UnitValue
+import org.example.ResumeMaker.Companion.SMALL_TEXT_SIZE
+
+//import org.example.ResumeMaker.Companion.addSkillSection
+
 
 
 // https://api.itextpdf.com/iText/java/8.0.2/
@@ -17,15 +26,16 @@ fun main() {
     val pdf = PdfDocument(PdfWriter(DEST))
     val document: Document = Document(pdf)
 
-    document.topMargin = 36.0f;
+    document.topMargin = 30.0f;
     val summaryText = "This is the text for the summary's it's the text with summary and only the text with summary and it ca also have numbers and stuff like 123 and @#$%^&%$#!@#$%^&*()_+{}|<>?/.;' but mostly just text"
 
 
-    document.add( nameHeading("Porkchop") )
-    document.add( contactInfo("(555) 555 5555", "porkchop@gmail.com", "Atlanta, US") )
-    summarySection("SUMMARY", summaryText).forEach {  it: BlockElement<IElement> ->
+    document.add( resumeMaker.createNameHeader("Porkchop") )
+    document.add( resumeMaker.createContactInfo("(555) 555 5555", "porkchop@gmail.com", "Atlanta, US") )
+    document.addSummarySection( resumeMaker.createSummarySection("SUMMARY", summaryText))
+    /*summarySection("SUMMARY", summaryText).forEach {  it: BlockElement<IElement> ->
         document.add(it)
-    }
+    }*/
 
     document.addSkillSection(
         resumeMaker.createSkillsSection(
@@ -36,6 +46,75 @@ fun main() {
             ).toTypedArray(),
         )
     )
+
+    document.addExperienceSection(
+        resumeMaker.createExperienceSection(
+            headerText = "EXPERIENCE",
+            jobs = listOf(
+                resumeMaker.createJob(
+                    jobTitle = "House Cat",
+                    company = "Meow Meow Inc.",
+                    from = "July 2020",
+                    to = "Present",
+                    bullets = listOf(
+                        "asdfasfdasfdasfsafasfsf",
+                        "asdfasfdasfdasfsafasfsf",
+                        "asdfasfdasfdasfsafasfsf",
+                        "asdfasfdasfdasfsafasfsf",
+                        "asdfasfdasfdasfsafasfsf"
+                    )
+                ),
+                resumeMaker.createJob(
+                    jobTitle = "Kitten",
+                    company = "PetCo",
+                    from = "January 2019",
+                    to = "July 2020",
+                    bullets = listOf(
+                        "asdfasfdasfdasfsafasfsf",
+                        "asdfasfdasfdasfsafasfsf",
+                        "asdfasfdasfdasfsafasfsf",
+                        "asdfasfdasfdasfsafasfsf",
+                        "asdfasfdasfdasfsafasfsf"
+                    )
+                )
+            )
+        )
+    )
+
+    // 612 972
+   /* val columnWidths = floatArrayOf(204f, 204f, 204f)
+    val table = Table(columnWidths)
+    table.setBorder(Border.NO_BORDER)
+
+
+    val cell = Cell(1, 1)
+        .add(Paragraph("cell 1"))
+        .setFontSize(10f)
+        .setBold()
+        .setFontColor(DeviceRgb.BLUE)
+        .setTextAlignment(TextAlignment.LEFT)
+        .setBorder(Border.NO_BORDER)
+
+    val cell2 = Cell(1, 1)
+        .add(Paragraph("cell 2"))
+        .setFontSize(10f)
+        .setBold()
+        .setTextAlignment(TextAlignment.CENTER)
+        .setBorder(Border.NO_BORDER)
+
+
+    val cell3 = Cell(1, 1)
+        .add(Paragraph("cell 3"))
+        .setFontSize(10f)
+        .setBold()
+        .setTextAlignment(TextAlignment.RIGHT)
+        .setBorder(Border.NO_BORDER)*/
+
+    //table.addHeaderCell(cell)
+  //  table.addCell(cell)
+//    table.addCell(cell2)
+    //table.addCell(cell3)
+
     //document.add( sectionHeader("Summary"))
 
 
@@ -62,7 +141,8 @@ fun contactInfo(vararg infos: String): Paragraph {
     val contactInfo = infos.reduce() { it1, it2 -> "$it1   |   $it2" }
     return Paragraph(contactInfo)
         .setTextAlignment(TextAlignment.CENTER)
-        .setFontSize(14.0f)
+        .setBold()
+        .setFontSize(SMALL_TEXT_SIZE)
 }
 
 
@@ -85,8 +165,6 @@ fun summarySection(s: String, text: String): kotlin.collections.List<BlockElemen
         sectionHeader as BlockElement<IElement>,
         separator as BlockElement<IElement>,
         summary
-        //sectionHeader as BlockElement<T>,
-        //separator as BlockElement<T>
     )
 
 }

@@ -1,11 +1,12 @@
 package org.example.sections
 
+import com.itextpdf.layout.element.LineSeparator
+import com.itextpdf.layout.element.Paragraph
+import com.itextpdf.layout.element.Table
+
 import java.time.YearMonth
 
 class Job(
-    val title: String,
-    val company: String,
-    val from: YearMonth,
-    val to: YearMonth?,
-    val bullets: List<String>
+    val header: Table,
+    val bullets: com.itextpdf.layout.element.List ,
 )

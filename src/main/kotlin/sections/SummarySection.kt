@@ -3,8 +3,8 @@ package org.example.sections
 import com.itextpdf.layout.element.LineSeparator
 import com.itextpdf.layout.element.Paragraph
 
-class ExperienceSection(
+class SummarySection(
     val header: Paragraph,
     val lineSeparator: LineSeparator,
-    val jobs: List<Job>
+    val summary: Paragraph
 )
