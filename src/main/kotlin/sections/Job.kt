@@ -8,5 +8,5 @@ import java.time.YearMonth
 
 class Job(
     val header: Table,
-    val bullets: com.itextpdf.layout.element.List ,
+    val bullets: Table
 )

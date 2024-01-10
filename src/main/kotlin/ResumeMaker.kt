@@ -1,24 +1,15 @@
 package org.example
 
-import com.itextpdf.io.font.constants.FontStyles
-import com.itextpdf.io.font.constants.StandardFonts
-import com.itextpdf.kernel.colors.CalGray
-import com.itextpdf.kernel.colors.Color
-import com.itextpdf.kernel.colors.DeviceCmyk
-import com.itextpdf.kernel.colors.DeviceGray
 import com.itextpdf.kernel.colors.DeviceRgb
 import com.itextpdf.kernel.pdf.canvas.draw.SolidLine
-import com.itextpdf.kernel.pdf.colorspace.PdfColorSpace
-import com.itextpdf.layout.Document
 import com.itextpdf.layout.borders.Border
 import com.itextpdf.layout.element.*
 import com.itextpdf.layout.properties.TextAlignment
+import com.itextpdf.layout.properties.VerticalAlignment
 import org.example.sections.ExperienceSection
 import org.example.sections.Job
 import org.example.sections.SkillSection
 import org.example.sections.SummarySection
-import java.awt.color.ColorSpace
-import java.time.YearMonth
 
 class ResumeMaker {
 
@@ -85,8 +76,8 @@ class ResumeMaker {
         val fromToString = "$from - ${to ?: "Present"}"
 
         val columnWidths = floatArrayOf(204f, 204f, 204f)
-        val table = Table(columnWidths)
-        table.setBorder(Border.NO_BORDER)
+        val headerTable = Table(columnWidths)
+        headerTable.setBorder(Border.NO_BORDER)
 
 
         val jobTitleCell = Cell(1, 1)
@@ -112,21 +103,47 @@ class ResumeMaker {
             .setTextAlignment(TextAlignment.RIGHT)
             .setBorder(Border.NO_BORDER)
 
-        table.addCell(jobTitleCell)
-        table.addCell(companyCell)
-        table.addCell(fromToCell)
-
-        val bulletList = com.itextpdf.layout.element.List()
-            .setListSymbol(BULLET_SYMBOL)
-            .setFontSize(SMALL_TEXT_SIZE)
+        headerTable.addCell(jobTitleCell)
+        headerTable.addCell(companyCell)
+        headerTable.addCell(fromToCell)
 
 
 
-        bullets.forEach { bullet -> bulletList.add(bullet) }
+        val bulletTable = Table(floatArrayOf(16F,602f))
+        bulletTable.setMarginLeft(15f)
+
+        // 612 972
+        bullets.forEachIndexed { i, bulletText ->
+
+
+            val bulletSymbolCell = Cell(i+1, 1)
+                .add(Paragraph(BULLET_SYMBOL))
+                .setFontSize(BULLET_SYMBOL_SIZE)
+                .setTextAlignment(TextAlignment.CENTER)
+                .setVerticalAlignment(VerticalAlignment.TOP)
+                .setBorder(Border.NO_BORDER)
+                .setRelativePosition(0f, 0f, 0f, 1f)
+                .setPadding(CELL_PADDING)
+
+
+            val bulletTextCell = Cell(i+1, 2)
+                .add(Paragraph(bulletText))
+                .setFontSize(SMALL_TEXT_SIZE)
+                .setFontColor(SMALL_TEXT_COLOR)
+                .setTextAlignment(TextAlignment.LEFT)
+                .setVerticalAlignment(VerticalAlignment.TOP)
+                .setPadding(CELL_PADDING)
+                .setBorder(Border.NO_BORDER)
+
+
+            bulletTable.addCell(bulletSymbolCell)
+            bulletTable.addCell(bulletTextCell)
+        }
+
 
         return Job(
-            header = table,
-            bullets = bulletList
+            header = headerTable,
+            bullets = bulletTable
         )
 
 
@@ -150,9 +167,12 @@ class ResumeMaker {
         const val SMALL_TEXT_SIZE = 10.0f
         const val HEADER_TEXT_SIZE = 14.0f
         const val NAME_TEXT_SIZE = 28.0f
+        const val BULLET_TEXT_LEADING = 5f
+        const val BULLET_SYMBOL_SIZE = 12f
+        const val CELL_PADDING = 0f
         val SMALL_TEXT_COLOR = DeviceRgb(89, 84, 84)
         val LINE_SEPARATOR = LineSeparator(SolidLine(1.0f))
-        const val BULLET_SYMBOL = "• "
+        const val BULLET_SYMBOL = "•"
 
 
     }

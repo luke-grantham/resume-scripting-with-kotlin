@@ -57,11 +57,11 @@ fun main() {
                     from = "July 2020",
                     to = "Present",
                     bullets = listOf(
-                        "asdfasfdasfdasfsafasfsf",
-                        "asdfasfdasfdasfsafasfsf",
-                        "asdfasfdasfdasfsafasfsf",
-                        "asdfasfdasfdasfsafasfsf",
-                        "asdfasfdasfdasfsafasfsf"
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                        "Duis at ligula at augue sodales congue nec quis risus. Aenean sollicitudin nisl vel erat vehicula suscipit.",
+                        "Integer vestibulum gravida ex eu lobortis. In hac habitasse platea dictumst. Praesent vehicula placerat quam, non dapibus lorem posuere ut.",
+                        "Duis at ligula at augue sodales congue nec quis risus. Aenean sollicitudin nisl vel erat vehicula suscipit.",
+                        "Duis at ligula at augue sodales congue nec quis risus. Aenean sollicitudin nisl vel erat vehicula suscipit."
                     )
                 ),
                 resumeMaker.createJob(
@@ -70,11 +70,11 @@ fun main() {
                     from = "January 2019",
                     to = "July 2020",
                     bullets = listOf(
-                        "asdfasfdasfdasfsafasfsf",
-                        "asdfasfdasfdasfsafasfsf",
-                        "asdfasfdasfdasfsafasfsf",
-                        "asdfasfdasfdasfsafasfsf",
-                        "asdfasfdasfdasfsafasfsf"
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+                        "Duis at ligula at augue sodales congue nec quis risus. Aenean sollicitudin nisl vel erat vehicula suscipit.",
+                        "Integer vestibulum gravida ex eu lobortis. In hac habitasse platea dictumst. Praesent vehicula placerat quam, non dapibus lorem posuere ut.",
+                        "Duis at ligula at augue sodales congue nec quis risus. Aenean sollicitudin nisl vel erat vehicula suscipit.",
+                        "Duis at ligula at augue sodales congue nec quis risus. Aenean sollicitudin nisl vel erat vehicula suscipit. Duis at ligula at augue sodales congue nec quis risus. Aenean sollicitudin nisl vel erat vehicula suscipit. Duis at ligula at augue sodales congue nec quis risus. Aenean sollicitudin nisl vel erat vehicula suscipit. Duis at ligula at augue sodales congue nec quis risus. Aenean sollicitudin nisl vel erat vehicula suscipit."
                     )
                 )
             )
