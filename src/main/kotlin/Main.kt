@@ -13,6 +13,7 @@ import com.itextpdf.layout.element.*
 import com.itextpdf.layout.properties.TextAlignment
 import com.itextpdf.layout.properties.UnitValue
 import org.example.ResumeMaker.Companion.SMALL_TEXT_SIZE
+import org.example.sections.ExtraSection
 
 //import org.example.ResumeMaker.Companion.addSkillSection
 
@@ -76,6 +77,33 @@ fun main() {
                         "Duis at ligula at augue sodales congue nec quis risus. Aenean sollicitudin nisl vel erat vehicula suscipit.",
                         "Duis at ligula at augue sodales congue nec quis risus. Aenean sollicitudin nisl vel erat vehicula suscipit. Duis at ligula at augue sodales congue nec quis risus. Aenean sollicitudin nisl vel erat vehicula suscipit. Duis at ligula at augue sodales congue nec quis risus. Aenean sollicitudin nisl vel erat vehicula suscipit. Duis at ligula at augue sodales congue nec quis risus. Aenean sollicitudin nisl vel erat vehicula suscipit."
                     )
+                )
+            )
+        )
+    )
+
+    document.addExtraSection(
+
+        resumeMaker.createExtraSection(
+            headerText = "CERTIFICATIONS & AWARDS",
+            bullets = listOf(
+                "AWS Certified Solutions Architect Associate",
+                "R&D Excellence Award given for my work on an ETL project at NCR"
+            )
+        )
+    )
+
+    document.addExperienceSection(
+        resumeMaker.createExperienceSection(
+            headerText = "EDUCATION",
+            jobs = listOf(
+                resumeMaker.createJob(
+                    jobTitle = "University of Georgia",
+                    company = "Bachelor of Computer Science",
+                    from = "Aug '13",
+                    to = "May '15",
+                    bullets = emptyList()
+
                 )
             )
         )

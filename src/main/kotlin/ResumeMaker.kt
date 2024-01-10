@@ -6,10 +6,7 @@ import com.itextpdf.layout.borders.Border
 import com.itextpdf.layout.element.*
 import com.itextpdf.layout.properties.TextAlignment
 import com.itextpdf.layout.properties.VerticalAlignment
-import org.example.sections.ExperienceSection
-import org.example.sections.Job
-import org.example.sections.SkillSection
-import org.example.sections.SummarySection
+import org.example.sections.*
 
 class ResumeMaker {
 
@@ -143,6 +140,51 @@ class ResumeMaker {
 
         return Job(
             header = headerTable,
+            bullets = bulletTable
+        )
+
+
+    }
+
+    fun createExtraSection(
+        headerText: String,
+        bullets: List<String>
+    ): ExtraSection {
+
+        val bulletTable = Table(floatArrayOf(16F,602f))
+        bulletTable.setMarginLeft(15f)
+
+        // 612 972
+        bullets.forEachIndexed { i, bulletText ->
+
+
+            val bulletSymbolCell = Cell(i+1, 1)
+                .add(Paragraph(BULLET_SYMBOL))
+                .setFontSize(BULLET_SYMBOL_SIZE)
+                .setTextAlignment(TextAlignment.CENTER)
+                .setVerticalAlignment(VerticalAlignment.TOP)
+                .setBorder(Border.NO_BORDER)
+                .setRelativePosition(0f, 0f, 0f, 1f)
+                .setPadding(CELL_PADDING)
+
+
+            val bulletTextCell = Cell(i+1, 2)
+                .add(Paragraph(bulletText))
+                .setFontSize(SMALL_TEXT_SIZE)
+                .setFontColor(SMALL_TEXT_COLOR)
+                .setTextAlignment(TextAlignment.LEFT)
+                .setVerticalAlignment(VerticalAlignment.TOP)
+                .setPadding(CELL_PADDING)
+                .setBorder(Border.NO_BORDER)
+
+
+            bulletTable.addCell(bulletSymbolCell)
+            bulletTable.addCell(bulletTextCell)
+        }
+
+
+        return ExtraSection(
+            header = createSectionHeader(headerText),
             bullets = bulletTable
         )
 

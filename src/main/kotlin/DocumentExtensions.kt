@@ -1,10 +1,8 @@
 package org.example
 
 import com.itextpdf.layout.Document
-import org.example.sections.ExperienceSection
-import org.example.sections.Job
-import org.example.sections.SkillSection
-import org.example.sections.SummarySection
+import org.example.sections.*
+import org.example.ResumeMaker.Companion.LINE_SEPARATOR
 
 fun Document.addSkillSection(skillSection: SkillSection) {
     this.add(skillSection.header)
@@ -34,3 +32,8 @@ fun Document.addSummarySection(summarySection: SummarySection) {
 }
 
 
+fun Document.addExtraSection(extraSection: ExtraSection) {
+    this.add(extraSection.header)
+    this.add(LINE_SEPARATOR)
+    this.add(extraSection.bullets)
+}
