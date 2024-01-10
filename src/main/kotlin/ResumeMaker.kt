@@ -1,5 +1,6 @@
 package org.example
 
+import com.itextpdf.kernel.colors.DeviceCmyk
 import com.itextpdf.kernel.colors.DeviceRgb
 import com.itextpdf.kernel.pdf.canvas.draw.SolidLine
 import com.itextpdf.layout.borders.Border
@@ -10,11 +11,16 @@ import org.example.sections.*
 
 class ResumeMaker {
 
+    // todo
+    // todo: Druid Sans
+    // todo: big | in contact info
+
     private fun createSectionHeader(headerText: String): Paragraph {
         return Paragraph(headerText)
             .setTextAlignment(TextAlignment.LEFT)
             .setFontSize(HEADER_TEXT_SIZE)
             .setMarginBottom(-4f) // Makes the LineSeparator closer to the header text
+            .setPaddingTop(5f)
     }
 
     fun createNameHeader(name: String) : Paragraph {
@@ -27,8 +33,8 @@ class ResumeMaker {
         val contactInfo = infos.reduce() { it1, it2 -> "$it1   |   $it2" }
         return Paragraph(contactInfo)
             .setTextAlignment(TextAlignment.CENTER)
-            .setBold()
-            .setFontSize(SMALL_TEXT_SIZE)
+            
+            .setFontSize(CONTACT_INFO_TEXT_SIZE)
     }
 
     fun createSummarySection(headerText: String, summaryText: String): SummarySection {
@@ -51,7 +57,7 @@ class ResumeMaker {
             Paragraph(skillLine.reduce { skill1, skill2 -> "$skill1, $skill2" })
                 .setTextAlignment(TextAlignment.CENTER)
                 .setFontSize(SMALL_TEXT_SIZE)
-                .setBold()
+
         }
 
         return SkillSection(
@@ -74,21 +80,23 @@ class ResumeMaker {
 
         val columnWidths = floatArrayOf(204f, 204f, 204f)
         val headerTable = Table(columnWidths)
-        headerTable.setBorder(Border.NO_BORDER)
+        headerTable
+            .setBorder(Border.NO_BORDER)
+            .setMargin(5f)
 
 
         val jobTitleCell = Cell(1, 1)
             .add(Paragraph(jobTitle))
             .setFontSize(SMALL_TEXT_SIZE)
-            .setBold()
-            .setFontColor(DeviceRgb.BLUE)
+            
+            .setFontColor(BLUE_TEXT_COLOR)
             .setTextAlignment(TextAlignment.LEFT)
             .setBorder(Border.NO_BORDER)
 
         val companyCell = Cell(1, 1)
             .add(Paragraph(company))
             .setFontSize(SMALL_TEXT_SIZE)
-            .setBold()
+            
             .setTextAlignment(TextAlignment.CENTER)
             .setBorder(Border.NO_BORDER)
 
@@ -96,7 +104,7 @@ class ResumeMaker {
         val fromToCell = Cell(1, 1)
             .add(Paragraph(fromToString))
             .setFontSize(SMALL_TEXT_SIZE)
-            .setBold()
+            
             .setTextAlignment(TextAlignment.RIGHT)
             .setBorder(Border.NO_BORDER)
 
@@ -107,11 +115,11 @@ class ResumeMaker {
 
 
         val bulletTable = Table(floatArrayOf(16F,602f))
-        bulletTable.setMarginLeft(15f)
+        bulletTable
+            .setMarginLeft(15f)
 
         // 612 972
         bullets.forEachIndexed { i, bulletText ->
-
 
             val bulletSymbolCell = Cell(i+1, 1)
                 .add(Paragraph(BULLET_SYMBOL))
@@ -207,13 +215,14 @@ class ResumeMaker {
 
     companion object {
         const val SMALL_TEXT_SIZE = 10.0f
-        const val HEADER_TEXT_SIZE = 14.0f
+        const val HEADER_TEXT_SIZE = 13.0f
         const val NAME_TEXT_SIZE = 28.0f
-        const val BULLET_TEXT_LEADING = 5f
-        const val BULLET_SYMBOL_SIZE = 12f
+        const val BULLET_SYMBOL_SIZE = 14f
         const val CELL_PADDING = 0f
+        const val CONTACT_INFO_TEXT_SIZE = 11f
         val SMALL_TEXT_COLOR = DeviceRgb(89, 84, 84)
-        val LINE_SEPARATOR = LineSeparator(SolidLine(1.0f))
+        val BLUE_TEXT_COLOR = DeviceCmyk(100, 19, 0, 5)
+        val LINE_SEPARATOR = LineSeparator(SolidLine(1.0f)).setMarginTop(2f)
         const val BULLET_SYMBOL = "•"
 
 
