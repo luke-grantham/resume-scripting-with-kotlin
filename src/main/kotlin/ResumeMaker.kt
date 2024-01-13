@@ -23,8 +23,8 @@ class ResumeMaker {
             .setPaddingTop(5f)
     }
 
-    fun createNameHeader(name: String) : Paragraph {
-        return Paragraph(name)
+    fun createNameHeader(headingDSL: HeadingDSL) : Paragraph {
+        return Paragraph(headingDSL.name)
             .setTextAlignment(TextAlignment.CENTER)
             .setFontSize(NAME_TEXT_SIZE)
     }
@@ -37,23 +37,23 @@ class ResumeMaker {
             .setFontSize(CONTACT_INFO_TEXT_SIZE)
     }
 
-    fun createSummarySection(headerText: String, summaryText: String): SummarySection {
+    fun createSummarySection(summaryDSL: SummarySectionDSL): SummarySection {
 
-        val summary = Paragraph(summaryText)
+        val summary = Paragraph(summaryDSL.text)
             .setTextAlignment(TextAlignment.LEFT)
             .setFontSize(SMALL_TEXT_SIZE)
             .setFontColor(SMALL_TEXT_COLOR)
 
         return SummarySection(
-            header = createSectionHeader(headerText),
+            header = createSectionHeader(summaryDSL.header),
             lineSeparator = LINE_SEPARATOR,
             summary = summary
         )
     }
 
-    fun createSkillsSection(headerText: String, vararg skillLines: kotlin.collections.List<String>): SkillSection {
+    fun createSkillsSection(skillsDSL: SkillSectionDSL): SkillSection {
 
-        val skills = skillLines.map { skillLine ->
+        val skills = skillsDSL.skills.map { skillLine ->
             Paragraph(skillLine.reduce { skill1, skill2 -> "$skill1, $skill2" })
                 .setTextAlignment(TextAlignment.CENTER)
                 .setFontSize(SMALL_TEXT_SIZE)
@@ -61,22 +61,18 @@ class ResumeMaker {
         }
 
         return SkillSection(
-            header = createSectionHeader("SKILLS"),
+            header = createSectionHeader(skillsDSL.header),
             lineSeparator = LINE_SEPARATOR,
             skills = skills
         )
     }
 
     fun createJob(
-        jobTitle: String,
-        company: String,
-        from: String,
-        to: String?,
-        bullets: List<String>
+        jobDSL: JobDSL
     ): Job {
 
 
-        val fromToString = "$from - ${to ?: "Present"}"
+        val fromToString = "${jobDSL.from} - ${jobDSL.to ?: "Present"}"
 
         val columnWidths = floatArrayOf(204f, 204f, 204f)
         val headerTable = Table(columnWidths)
@@ -86,7 +82,7 @@ class ResumeMaker {
 
 
         val jobTitleCell = Cell(1, 1)
-            .add(Paragraph(jobTitle))
+            .add(Paragraph(jobDSL.jobTitle))
             .setFontSize(SMALL_TEXT_SIZE)
             
             .setFontColor(BLUE_TEXT_COLOR)
@@ -94,7 +90,7 @@ class ResumeMaker {
             .setBorder(Border.NO_BORDER)
 
         val companyCell = Cell(1, 1)
-            .add(Paragraph(company))
+            .add(Paragraph(jobDSL.company))
             .setFontSize(SMALL_TEXT_SIZE)
             
             .setTextAlignment(TextAlignment.CENTER)
@@ -115,11 +111,10 @@ class ResumeMaker {
 
 
         val bulletTable = Table(floatArrayOf(16F,602f))
-        bulletTable
-            .setMarginLeft(15f)
+        bulletTable.setMarginLeft(15f)
 
         // 612 972
-        bullets.forEachIndexed { i, bulletText ->
+        jobDSL.bullets.forEachIndexed { i, bulletText ->
 
             val bulletSymbolCell = Cell(i+1, 1)
                 .add(Paragraph(BULLET_SYMBOL))
@@ -155,15 +150,14 @@ class ResumeMaker {
     }
 
     fun createExtraSection(
-        headerText: String,
-        bullets: List<String>
+        extraSectionDSL: ExtraSectionDSL
     ): ExtraSection {
 
         val bulletTable = Table(floatArrayOf(16F,602f))
         bulletTable.setMarginLeft(15f)
 
         // 612 972
-        bullets.forEachIndexed { i, bulletText ->
+        extraSectionDSL.bullets.forEachIndexed { i, bulletText ->
 
 
             val bulletSymbolCell = Cell(i+1, 1)
@@ -192,7 +186,7 @@ class ResumeMaker {
 
 
         return ExtraSection(
-            header = createSectionHeader(headerText),
+            header = createSectionHeader(extraSectionDSL.header),
             bullets = bulletTable
         )
 
@@ -200,14 +194,13 @@ class ResumeMaker {
     }
 
     fun createExperienceSection(
-        headerText: String,
-        jobs: kotlin.collections.List<Job>
+        experienceDSL: ExperienceSectionDSL
     ): ExperienceSection {
 
         return ExperienceSection(
-            header = createSectionHeader(headerText),
+            header = createSectionHeader(experienceDSL.header),
             lineSeparator = LINE_SEPARATOR,
-            jobs = jobs
+            jobs = experienceDSL.jobs.map { jobsDSL -> createJob(jobsDSL) }
         )
     }
 
