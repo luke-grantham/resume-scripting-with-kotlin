@@ -10,7 +10,7 @@ fun main() {
         }
 
         contactInfo {
-            telephone("555 555 5555")
+            telephone(555.toString() + " 555 5555")
             email("porkchop@gmail.com")
             location("Atlanta, GA")
         }

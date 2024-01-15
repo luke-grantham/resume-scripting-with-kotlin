@@ -9,8 +9,18 @@ import com.itextpdf.layout.properties.TextAlignment
 import com.itextpdf.layout.properties.VerticalAlignment
 import org.example.sections.*
 
-class ResumeMaker {
+object ResumeMaker {
 
+    const val SMALL_TEXT_SIZE = 10.0f
+    const val HEADER_TEXT_SIZE = 13.0f
+    const val NAME_TEXT_SIZE = 28.0f
+    const val BULLET_SYMBOL_SIZE = 14f
+    const val CELL_PADDING = 0f
+    const val CONTACT_INFO_TEXT_SIZE = 11f
+    val SMALL_TEXT_COLOR = DeviceRgb(89, 84, 84)
+    val BLUE_TEXT_COLOR = DeviceCmyk(100, 19, 0, 5)
+    val LINE_SEPARATOR = LineSeparator(SolidLine(1.0f)).setMarginTop(2f)
+    const val BULLET_SYMBOL = "•"
     // todo
     // todo: Druid Sans
     // todo: big | in contact info
@@ -23,18 +33,24 @@ class ResumeMaker {
             .setPaddingTop(5f)
     }
 
-    fun createNameHeader(headingDSL: HeadingDSL) : Paragraph {
-        return Paragraph(headingDSL.name)
-            .setTextAlignment(TextAlignment.CENTER)
-            .setFontSize(NAME_TEXT_SIZE)
+    fun createNameHeader(headingDSL: HeadingDSL) : NameHeader {
+        return NameHeader(
+            header = Paragraph(headingDSL.name)
+                .setTextAlignment(TextAlignment.CENTER)
+                .setFontSize(NAME_TEXT_SIZE)
+        )
     }
 
-    fun createContactInfo(vararg infos: String): Paragraph {
-        val contactInfo = infos.reduce() { it1, it2 -> "$it1   |   $it2" }
-        return Paragraph(contactInfo)
+    fun createContactInfo(contactInfoDSL: ContactInfoDSL): ContactInfo {
+        //val contactInfo = infos.reduce() { it1, it2 -> "$it1   |   $it2" }
+        val contactInfo = "${contactInfoDSL.telephone}   |   ${contactInfoDSL.email}   |   ${contactInfoDSL.location}"
+        val contactInfoParagraph = Paragraph(contactInfo)
             .setTextAlignment(TextAlignment.CENTER)
-            
             .setFontSize(CONTACT_INFO_TEXT_SIZE)
+
+        return ContactInfo(
+            contactInfoParagraph = contactInfoParagraph
+        )
     }
 
     fun createSummarySection(summaryDSL: SummarySectionDSL): SummarySection {
@@ -206,7 +222,7 @@ class ResumeMaker {
 
 
 
-    companion object {
+   /* companion object {
         const val SMALL_TEXT_SIZE = 10.0f
         const val HEADER_TEXT_SIZE = 13.0f
         const val NAME_TEXT_SIZE = 28.0f
@@ -219,5 +235,5 @@ class ResumeMaker {
         const val BULLET_SYMBOL = "•"
 
 
-    }
+    }*/
 }
