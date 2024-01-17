@@ -33,31 +33,31 @@ object ResumeMaker {
             .setPaddingTop(5f)
     }
 
-    fun createNameHeader(headingDSL: HeadingDSL) : NameHeader {
+    fun createNameHeader(headingDSL: HeadingDSL, formatting: Formatting) : NameHeader {
         return NameHeader(
             header = Paragraph(headingDSL.name)
                 .setTextAlignment(TextAlignment.CENTER)
-                .setFontSize(NAME_TEXT_SIZE)
+                .setFontSize(formatting.nameHeaderSize)
         )
     }
 
-    fun createContactInfo(contactInfoDSL: ContactInfoDSL): ContactInfo {
+    fun createContactInfo(contactInfoDSL: ContactInfoDSL, formatting: Formatting): ContactInfo {
         //val contactInfo = infos.reduce() { it1, it2 -> "$it1   |   $it2" }
         val contactInfo = "${contactInfoDSL.telephone}   |   ${contactInfoDSL.email}   |   ${contactInfoDSL.location}"
         val contactInfoParagraph = Paragraph(contactInfo)
             .setTextAlignment(TextAlignment.CENTER)
-            .setFontSize(CONTACT_INFO_TEXT_SIZE)
+            .setFontSize(formatting.contactInfoSize)
 
         return ContactInfo(
             contactInfoParagraph = contactInfoParagraph
         )
     }
 
-    fun createSummarySection(summaryDSL: SummarySectionDSL): SummarySection {
+    fun createSummarySection(summaryDSL: SummarySectionDSL, formatting: Formatting): SummarySection {
 
         val summary = Paragraph(summaryDSL.text)
             .setTextAlignment(TextAlignment.LEFT)
-            .setFontSize(SMALL_TEXT_SIZE)
+            .setFontSize(formatting.textSize)
             .setFontColor(SMALL_TEXT_COLOR)
 
         return SummarySection(
@@ -67,12 +67,12 @@ object ResumeMaker {
         )
     }
 
-    fun createSkillsSection(skillsDSL: SkillSectionDSL): SkillSection {
+    fun createSkillsSection(skillsDSL: SkillSectionDSL, formatting: Formatting): SkillSection {
 
         val skills = skillsDSL.skills.map { skillLine ->
             Paragraph(skillLine.reduce { skill1, skill2 -> "$skill1, $skill2" })
                 .setTextAlignment(TextAlignment.CENTER)
-                .setFontSize(SMALL_TEXT_SIZE)
+                .setFontSize(formatting.textSize)
 
         }
 
@@ -84,7 +84,8 @@ object ResumeMaker {
     }
 
     fun createJob(
-        jobDSL: JobDSL
+        jobDSL: JobDSL,
+        formatting: Formatting
     ): Job {
 
 
@@ -99,7 +100,7 @@ object ResumeMaker {
 
         val jobTitleCell = Cell(1, 1)
             .add(Paragraph(jobDSL.jobTitle))
-            .setFontSize(SMALL_TEXT_SIZE)
+            .setFontSize(formatting.textSize)
             
             .setFontColor(BLUE_TEXT_COLOR)
             .setTextAlignment(TextAlignment.LEFT)
@@ -107,7 +108,7 @@ object ResumeMaker {
 
         val companyCell = Cell(1, 1)
             .add(Paragraph(jobDSL.company))
-            .setFontSize(SMALL_TEXT_SIZE)
+            .setFontSize(formatting.textSize)
             
             .setTextAlignment(TextAlignment.CENTER)
             .setBorder(Border.NO_BORDER)
@@ -115,7 +116,7 @@ object ResumeMaker {
 
         val fromToCell = Cell(1, 1)
             .add(Paragraph(fromToString))
-            .setFontSize(SMALL_TEXT_SIZE)
+            .setFontSize(formatting.textSize)
             
             .setTextAlignment(TextAlignment.RIGHT)
             .setBorder(Border.NO_BORDER)
@@ -139,16 +140,16 @@ object ResumeMaker {
                 .setVerticalAlignment(VerticalAlignment.TOP)
                 .setBorder(Border.NO_BORDER)
                 .setRelativePosition(0f, 0f, 0f, 1f)
-                .setPadding(CELL_PADDING)
+                .setPadding(formatting.cellPadding)
 
 
             val bulletTextCell = Cell(i+1, 2)
                 .add(Paragraph(bulletText))
-                .setFontSize(SMALL_TEXT_SIZE)
+                .setFontSize(formatting.textSize)
                 .setFontColor(SMALL_TEXT_COLOR)
                 .setTextAlignment(TextAlignment.LEFT)
                 .setVerticalAlignment(VerticalAlignment.TOP)
-                .setPadding(CELL_PADDING)
+                .setPadding(formatting.cellPadding)
                 .setBorder(Border.NO_BORDER)
 
 
@@ -166,7 +167,8 @@ object ResumeMaker {
     }
 
     fun createExtraSection(
-        extraSectionDSL: ExtraSectionDSL
+        extraSectionDSL: ExtraSectionDSL,
+        formatting: Formatting
     ): ExtraSection {
 
         val bulletTable = Table(floatArrayOf(16F,602f))
@@ -183,16 +185,16 @@ object ResumeMaker {
                 .setVerticalAlignment(VerticalAlignment.TOP)
                 .setBorder(Border.NO_BORDER)
                 .setRelativePosition(0f, 0f, 0f, 1f)
-                .setPadding(CELL_PADDING)
+                .setPadding(formatting.cellPadding)
 
 
             val bulletTextCell = Cell(i+1, 2)
                 .add(Paragraph(bulletText))
-                .setFontSize(SMALL_TEXT_SIZE)
+                .setFontSize(formatting.textSize)
                 .setFontColor(SMALL_TEXT_COLOR)
                 .setTextAlignment(TextAlignment.LEFT)
                 .setVerticalAlignment(VerticalAlignment.TOP)
-                .setPadding(CELL_PADDING)
+                .setPadding(formatting.cellPadding)
                 .setBorder(Border.NO_BORDER)
 
 
@@ -210,13 +212,14 @@ object ResumeMaker {
     }
 
     fun createExperienceSection(
-        experienceDSL: ExperienceSectionDSL
+        experienceDSL: ExperienceSectionDSL,
+        formatting: Formatting
     ): ExperienceSection {
 
         return ExperienceSection(
             header = createSectionHeader(experienceDSL.header),
             lineSeparator = LINE_SEPARATOR,
-            jobs = experienceDSL.jobs.map { jobsDSL -> createJob(jobsDSL) }
+            jobs = experienceDSL.jobs.map { jobsDSL -> createJob(jobsDSL, formatting) }
         )
     }
 

@@ -4,11 +4,32 @@ import com.itextpdf.kernel.pdf.PdfDocument
 import com.itextpdf.kernel.pdf.PdfWriter
 import com.itextpdf.layout.Document
 
+class Formatting {
+    var textSize = 10.0f
+    var headerSize = 13.0f
+    var nameHeaderSize = 28.0f
+    var contactInfoSize = 11f
+    var cellPadding = 0f
+
+    fun textSize(s: Number) { textSize = s.toFloat() }
+    fun headerSize(s: Number) { headerSize = s.toFloat() }
+    fun nameHeaderSize(s: Number) { nameHeaderSize = s.toFloat() }
+    fun contactInfoSize(s: Number) { contactInfoSize = s.toFloat() }
+    fun cellPadding(s: Number) { cellPadding = s.toFloat() }
+}
+fun ResumeBuilder.formatting(inner: Formatting.() -> Unit) {
+    val formatting = Formatting()
+    formatting.inner()
+    this.formatting = formatting
+}
+
+
 class ResumeBuilder(
     val document: Document,
+    var formatting: Formatting
 )
 interface SectionDSL {
-    fun addToDocument(document: Document)
+    fun addToDocument(document: Document, formatting: Formatting)
 }
 
 /*
@@ -19,14 +40,14 @@ interface SectionDSL {
 */
 fun <T: SectionDSL> ResumeBuilder.initSectionPart(section: T, inner: T.() -> Unit) {
     section.inner()
-    section.addToDocument(this.document)
+    section.addToDocument(this.document, this.formatting)
 }
 
 
 class HeadingDSL : SectionDSL {
     var name: String = ""
-    override fun addToDocument(document: Document) {
-        document.add(ResumeMaker.createNameHeader(this))
+    override fun addToDocument(document: Document, formatting: Formatting) {
+        document.add(ResumeMaker.createNameHeader(this, formatting))
     }
 
     fun name(s: String ) { name = s }
@@ -41,8 +62,8 @@ class ContactInfoDSL : SectionDSL {
     var email: String = ""
     var location: String = ""
 
-    override fun addToDocument(document: Document) {
-        document.add(ResumeMaker.createContactInfo(this))
+    override fun addToDocument(document: Document, formatting: Formatting) {
+        document.add(ResumeMaker.createContactInfo(this, formatting))
     }
 
     fun telephone(s: String) { telephone = s }
@@ -60,8 +81,8 @@ class SkillSectionDSL : SectionDSL {
     var header: String = "SKILLS"
     var skills: MutableList<List<String>> = mutableListOf()
 
-    override fun addToDocument(document: Document) {
-        document.add(ResumeMaker.createSkillsSection(this))
+    override fun addToDocument(document: Document, formatting: Formatting) {
+        document.add(ResumeMaker.createSkillsSection(this, formatting))
     }
 
     fun header (s: String) { header = s }
@@ -78,8 +99,8 @@ class SummarySectionDSL : SectionDSL {
     var header: String = "SUMMARY"
     var text: String = ""
 
-    override fun addToDocument(document: Document) {
-        document.add(ResumeMaker.createSummarySection(this))
+    override fun addToDocument(document: Document, formatting: Formatting) {
+        document.add(ResumeMaker.createSummarySection(this, formatting))
     }
 
     fun header(s: String) { header = s }
@@ -97,8 +118,8 @@ class ExtraSectionDSL : SectionDSL {
     var header: String = "CERTIFICATIONS"
     var bullets: MutableList<String> = mutableListOf()
 
-    override fun addToDocument(document: Document) {
-        document.add(ResumeMaker.createExtraSection(this))
+    override fun addToDocument(document: Document, formatting: Formatting) {
+        document.add(ResumeMaker.createExtraSection(this, formatting))
     }
 
     fun header(s: String) { header = s }
@@ -115,8 +136,8 @@ class ExperienceSectionDSL : SectionDSL {
     var header: String = "Experience"
     var jobs: MutableList<JobDSL> = mutableListOf()
 
-    override fun addToDocument(document: Document) {
-        document.add(ResumeMaker.createExperienceSection(this))
+    override fun addToDocument(document: Document, formatting: Formatting) {
+        document.add(ResumeMaker.createExperienceSection(this, formatting))
     }
 
     fun header(s: String) { header = s }
@@ -164,10 +185,8 @@ fun ResumeBuilder(inner: ResumeBuilder.() -> Unit) {
 
     val resumeBuilder = ResumeBuilder(
         document = Document(PdfDocument(PdfWriter("output/hello.pdf"))),
+        formatting = Formatting()
     )
-    // todo: resumeBuilder has a ConfigDSL with default members
-    // todo: but if it's inside inner, i can't just run one thing inside inner
-    // todo: separate config DSL outside ResumeBuilder?
 
     resumeBuilder.document.topMargin = 30.0f;
 

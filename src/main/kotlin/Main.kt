@@ -3,7 +3,17 @@ package org.example
 // https://api.itextpdf.com/iText/java/8.0.2/
 fun main() {
 
+
+
     ResumeBuilder {
+
+        formatting {// optional
+            textSize(10.0)
+            headerSize(13.0)
+            nameHeaderSize(28.0f)
+            contactInfoSize(11)
+            cellPadding(0)
+        }
 
         heading {
             name("Porkchop")
