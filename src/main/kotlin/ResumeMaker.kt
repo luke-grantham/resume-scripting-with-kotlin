@@ -11,24 +11,21 @@ import org.example.sections.*
 
 object ResumeMaker {
 
-    const val SMALL_TEXT_SIZE = 10.0f
-    const val HEADER_TEXT_SIZE = 13.0f
-    const val NAME_TEXT_SIZE = 28.0f
     const val BULLET_SYMBOL_SIZE = 14f
-    const val CELL_PADDING = 0f
-    const val CONTACT_INFO_TEXT_SIZE = 11f
+
     val SMALL_TEXT_COLOR = DeviceRgb(89, 84, 84)
     val BLUE_TEXT_COLOR = DeviceCmyk(100, 19, 0, 5)
+    val HYPERLINK_COLOR = DeviceRgb(0, 102, 204)
     val LINE_SEPARATOR = LineSeparator(SolidLine(1.0f)).setMarginTop(2f)
     const val BULLET_SYMBOL = "•"
-    // todo
+
     // todo: Druid Sans
     // todo: big | in contact info
 
-    private fun createSectionHeader(headerText: String): Paragraph {
+    private fun createSectionHeader(headerText: String, headerTextSize: Float): Paragraph {
         return Paragraph(headerText)
             .setTextAlignment(TextAlignment.LEFT)
-            .setFontSize(HEADER_TEXT_SIZE)
+            .setFontSize(headerTextSize)
             .setMarginBottom(-4f) // Makes the LineSeparator closer to the header text
             .setPaddingTop(5f)
     }
@@ -42,7 +39,6 @@ object ResumeMaker {
     }
 
     fun createContactInfo(contactInfoDSL: ContactInfoDSL, formatting: Formatting): ContactInfo {
-        //val contactInfo = infos.reduce() { it1, it2 -> "$it1   |   $it2" }
         val contactInfo = "${contactInfoDSL.telephone}   |   ${contactInfoDSL.email}   |   ${contactInfoDSL.location}"
         val contactInfoParagraph = Paragraph(contactInfo)
             .setTextAlignment(TextAlignment.CENTER)
@@ -50,6 +46,20 @@ object ResumeMaker {
 
         return ContactInfo(
             contactInfoParagraph = contactInfoParagraph
+        )
+    }
+
+    fun createLinksSection(linksSectionDSL: LinksSectionDSL, formatting: Formatting): LinksSection {
+
+        val links: Paragraph = linksSectionDSL.links.fold(Paragraph()) { init, acc -> init.add(Paragraph(acc).setUnderline()).add("            ")  }
+
+        val linksParagraph = links
+            .setTextAlignment(TextAlignment.CENTER)
+            .setFontSize(formatting.linkSize)
+            .setFontColor(HYPERLINK_COLOR)
+
+        return LinksSection(
+            linksParagraph = linksParagraph
         )
     }
 
@@ -61,7 +71,7 @@ object ResumeMaker {
             .setFontColor(SMALL_TEXT_COLOR)
 
         return SummarySection(
-            header = createSectionHeader(summaryDSL.header),
+            header = createSectionHeader(summaryDSL.header, formatting.headerSize),
             lineSeparator = LINE_SEPARATOR,
             summary = summary
         )
@@ -70,14 +80,14 @@ object ResumeMaker {
     fun createSkillsSection(skillsDSL: SkillSectionDSL, formatting: Formatting): SkillSection {
 
         val skills = skillsDSL.skills.map { skillLine ->
-            Paragraph(skillLine.reduce { skill1, skill2 -> "$skill1, $skill2" })
+            Paragraph(skillLine.reduce { skill1, skill2 -> "$skill1,  $skill2" })
                 .setTextAlignment(TextAlignment.CENTER)
                 .setFontSize(formatting.textSize)
 
         }
 
         return SkillSection(
-            header = createSectionHeader(skillsDSL.header),
+            header = createSectionHeader(skillsDSL.header, formatting.headerSize),
             lineSeparator = LINE_SEPARATOR,
             skills = skills
         )
@@ -204,7 +214,7 @@ object ResumeMaker {
 
 
         return ExtraSection(
-            header = createSectionHeader(extraSectionDSL.header),
+            header = createSectionHeader(extraSectionDSL.header, formatting.headerSize),
             bullets = bulletTable
         )
 
@@ -217,26 +227,11 @@ object ResumeMaker {
     ): ExperienceSection {
 
         return ExperienceSection(
-            header = createSectionHeader(experienceDSL.header),
+            header = createSectionHeader(experienceDSL.header, formatting.headerSize),
             lineSeparator = LINE_SEPARATOR,
             jobs = experienceDSL.jobs.map { jobsDSL -> createJob(jobsDSL, formatting) }
         )
     }
 
 
-
-   /* companion object {
-        const val SMALL_TEXT_SIZE = 10.0f
-        const val HEADER_TEXT_SIZE = 13.0f
-        const val NAME_TEXT_SIZE = 28.0f
-        const val BULLET_SYMBOL_SIZE = 14f
-        const val CELL_PADDING = 0f
-        const val CONTACT_INFO_TEXT_SIZE = 11f
-        val SMALL_TEXT_COLOR = DeviceRgb(89, 84, 84)
-        val BLUE_TEXT_COLOR = DeviceCmyk(100, 19, 0, 5)
-        val LINE_SEPARATOR = LineSeparator(SolidLine(1.0f)).setMarginTop(2f)
-        const val BULLET_SYMBOL = "•"
-
-
-    }*/
 }

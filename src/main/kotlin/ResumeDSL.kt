@@ -5,17 +5,19 @@ import com.itextpdf.kernel.pdf.PdfWriter
 import com.itextpdf.layout.Document
 
 class Formatting {
-    var textSize = 10.0f
-    var headerSize = 13.0f
-    var nameHeaderSize = 28.0f
-    var contactInfoSize = 11f
-    var cellPadding = 0f
+    var textSize       : Float = 10.0f
+    var headerSize     : Float = 13.0f
+    var nameHeaderSize : Float = 28.0f
+    var contactInfoSize: Float = 11f
+    var cellPadding    : Float = 0f
+    var linkSize       : Float = 7.5f
 
     fun textSize(s: Number) { textSize = s.toFloat() }
     fun headerSize(s: Number) { headerSize = s.toFloat() }
     fun nameHeaderSize(s: Number) { nameHeaderSize = s.toFloat() }
     fun contactInfoSize(s: Number) { contactInfoSize = s.toFloat() }
     fun cellPadding(s: Number) { cellPadding = s.toFloat() }
+    fun linkSize(s: Number) { linkSize = s.toFloat() }
 }
 fun ResumeBuilder.formatting(inner: Formatting.() -> Unit) {
     val formatting = Formatting()
@@ -75,6 +77,18 @@ fun ResumeBuilder.contactInfo(inner: ContactInfoDSL.() -> Unit) = initSectionPar
 
 
 
+
+class LinksSectionDSL : SectionDSL {
+    val links: MutableList<String> = mutableListOf()
+
+    override fun addToDocument(document: Document, formatting: Formatting) {
+        document.add(ResumeMaker.createLinksSection(this, formatting))
+    }
+
+    fun link(s: String) = links.add(s)
+}
+
+fun ResumeBuilder.links(inner: LinksSectionDSL.() -> Unit) = initSectionPart(LinksSectionDSL(), inner)
 
 
 class SkillSectionDSL : SectionDSL {

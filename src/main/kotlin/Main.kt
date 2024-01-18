@@ -13,6 +13,7 @@ fun main() {
             nameHeaderSize(28.0f)
             contactInfoSize(11)
             cellPadding(0)
+            linkSize(7.5)
         }
 
         heading {
@@ -23,6 +24,11 @@ fun main() {
             telephone(555.toString() + " 555 5555")
             email("porkchop@gmail.com")
             location("Atlanta, GA")
+        }
+
+        links {
+            link("http://linkedin.com/in/luke-grantham")
+            link("http://github.com/luke-grantham")
         }
 
         summary {

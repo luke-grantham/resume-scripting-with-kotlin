@@ -7,6 +7,10 @@ import org.example.ResumeMaker.LINE_SEPARATOR
 fun Document.add(contactInfo: ContactInfo) {
     this.add(contactInfo.contactInfoParagraph)
 }
+
+fun Document.add(linksSection: LinksSection) {
+    this.add(linksSection.linksParagraph)
+}
 fun Document.add(nameHeader: NameHeader) {
     this.add(nameHeader.header)
 }
