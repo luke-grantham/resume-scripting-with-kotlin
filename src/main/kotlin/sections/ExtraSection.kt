@@ -1,6 +1,5 @@
-package org.example.sections
+package tech.lukegrantham.sections
 
-import com.itextpdf.layout.element.LineSeparator
 import com.itextpdf.layout.element.Paragraph
 import com.itextpdf.layout.element.Table
 

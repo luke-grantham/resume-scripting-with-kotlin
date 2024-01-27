@@ -1,8 +1,8 @@
-package org.example
+package tech.lukegrantham
 
 import com.itextpdf.layout.Document
-import org.example.sections.*
-import org.example.ResumeMaker.LINE_SEPARATOR
+import tech.lukegrantham.sections.*
+import tech.lukegrantham.ResumeMaker.LINE_SEPARATOR
 
 fun Document.add(contactInfo: ContactInfo) {
     this.add(contactInfo.contactInfoParagraph)

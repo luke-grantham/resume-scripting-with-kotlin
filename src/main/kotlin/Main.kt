@@ -1,9 +1,7 @@
-package org.example
+package tech.lukegrantham
 
 // https://api.itextpdf.com/iText/java/8.0.2/
 fun main() {
-
-
 
     ResumeBuilder {
 

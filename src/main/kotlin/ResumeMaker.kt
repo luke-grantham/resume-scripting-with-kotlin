@@ -1,4 +1,4 @@
-package org.example
+package tech.lukegrantham
 
 import com.itextpdf.kernel.colors.DeviceCmyk
 import com.itextpdf.kernel.colors.DeviceRgb
@@ -7,7 +7,7 @@ import com.itextpdf.layout.borders.Border
 import com.itextpdf.layout.element.*
 import com.itextpdf.layout.properties.TextAlignment
 import com.itextpdf.layout.properties.VerticalAlignment
-import org.example.sections.*
+import tech.lukegrantham.sections.*
 
 object ResumeMaker {
 
