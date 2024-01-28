@@ -1,5 +1,4 @@
-@file:DependsOn("tech.lukegrantham:resume-maker-all:1.0")
-//@file:DependsOn("/Users/Luke/IdeaProjects/resume-maker/build/libs/resume-maker-1.0-all.jar")
+@file:DependsOn("tech.lukegrantham:resume-maker:1.0")
 
 import tech.lukegrantham.*
 
