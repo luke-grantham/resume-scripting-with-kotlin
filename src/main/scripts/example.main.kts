@@ -2,7 +2,7 @@
 
 import tech.lukegrantham.*
 
-ResumeBuilder {
+ResumeBuilder(fileName = "example.pdf") {
 
     formatting {// optional
         textSize(10.0)
@@ -14,18 +14,18 @@ ResumeBuilder {
     }
 
     heading {
-        name("Porkchop")
+        name("Mr. Whiskers")
     }
 
     contactInfo {
         telephone(555.toString() + " 555 5555")
-        email("porkchop@gmail.com")
+        email("mwhiskers@gmail.com")
         location("Atlanta, GA")
     }
 
     links {
-        link("http://linkedin.com/in/luke-grantham")
-        link("http://github.com/luke-grantham")
+        link("http://linkedin.com/in/mrwhiskers")
+        link("http://github.com/mr-whiskers")
     }
 
     summary {
@@ -34,7 +34,7 @@ ResumeBuilder {
     }
 
     skillSection {
-        header("SKILLZZZ")
+        header("SKILLS")
         skills("Meowing", "Hoop Jumping", "Fighting")
         skills("Eating", "Sleeping")
         skills("meow", "meow")

@@ -195,10 +195,12 @@ fun ExperienceSectionDSL.edu(customFunction: JobDSL.() -> Unit) {
 }
 
 
-fun ResumeBuilder(inner: ResumeBuilder.() -> Unit) {
+fun ResumeBuilder(fileName:String, inner: ResumeBuilder.() -> Unit) {
+
+    val out = "output/$fileName"
 
     val resumeBuilder = ResumeBuilder(
-        document = Document(PdfDocument(PdfWriter("output/hello.pdf"))),
+        document = Document(PdfDocument(PdfWriter(out))),
         formatting = Formatting()
     )
 
@@ -207,5 +209,5 @@ fun ResumeBuilder(inner: ResumeBuilder.() -> Unit) {
     resumeBuilder.inner()
 
     resumeBuilder.document.close()
-    println("Awesome PDF just got created.")
+    println("PDF Resume created at $out")
 }
