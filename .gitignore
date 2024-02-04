@@ -43,3 +43,4 @@ bin/
 
 output/
 clean.sh
+src/main/scripts/my-resumes/*

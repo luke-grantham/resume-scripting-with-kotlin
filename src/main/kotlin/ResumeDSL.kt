@@ -3,6 +3,7 @@ package tech.lukegrantham
 import com.itextpdf.kernel.pdf.PdfDocument
 import com.itextpdf.kernel.pdf.PdfWriter
 import com.itextpdf.layout.Document
+import java.io.File
 
 class Formatting {
     var textSize       : Float = 10.0f
@@ -146,9 +147,10 @@ fun ResumeBuilder.section(inner: ExtraSectionDSL.() -> Unit) = initSectionPart(E
 
 
 
-class ExperienceSectionDSL : SectionDSL {
-    var header: String = "Experience"
+class ExperienceSectionDSL(
+    var header: String = "EXPERIENCE",
     var jobs: MutableList<JobDSL> = mutableListOf()
+) : SectionDSL {
 
     override fun addToDocument(document: Document, formatting: Formatting) {
         document.add(ResumeMaker.createExperienceSection(this, formatting))
@@ -158,7 +160,7 @@ class ExperienceSectionDSL : SectionDSL {
 }
 
 fun ResumeBuilder.experience(inner: ExperienceSectionDSL.() -> Unit) = initSectionPart(ExperienceSectionDSL(), inner)
-fun ResumeBuilder.education(inner: ExperienceSectionDSL.() -> Unit) = initSectionPart(ExperienceSectionDSL(), inner)
+fun ResumeBuilder.education(inner: ExperienceSectionDSL.() -> Unit) = initSectionPart(ExperienceSectionDSL(header = "EDUCATION"), inner)
 
 
 
@@ -197,6 +199,7 @@ fun ExperienceSectionDSL.edu(customFunction: JobDSL.() -> Unit) {
 
 fun ResumeBuilder(fileName:String, inner: ResumeBuilder.() -> Unit) {
 
+    File("output").mkdirs()
     val out = "output/$fileName"
 
     val resumeBuilder = ResumeBuilder(
