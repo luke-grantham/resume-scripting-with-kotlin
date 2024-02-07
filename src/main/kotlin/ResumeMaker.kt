@@ -36,7 +36,7 @@ object ResumeMaker {
     }
 
     fun createContactInfo(contactInfoDSL: ContactInfoDSL, formatting: Formatting): ContactInfo {
-        val contactInfo = "${contactInfoDSL.telephone}   |   ${contactInfoDSL.email}   |   ${contactInfoDSL.location}"
+        val contactInfo = "${contactInfoDSL.telephone}         |         ${contactInfoDSL.email}         |         ${contactInfoDSL.location}"
         val contactInfoParagraph = Paragraph(contactInfo)
             .setTextAlignment(TextAlignment.CENTER)
             .setFontSize(formatting.contactInfoSize)
