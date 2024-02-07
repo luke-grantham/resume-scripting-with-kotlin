@@ -11,15 +11,11 @@ import tech.lukegrantham.sections.*
 
 object ResumeMaker {
 
-    const val BULLET_SYMBOL_SIZE = 14f
+    private val SMALL_TEXT_COLOR = DeviceRgb(89, 84, 84)
+    private val BLUE_TEXT_COLOR = DeviceCmyk(100, 19, 0, 5)
+    private val HYPERLINK_COLOR = DeviceRgb(0, 102, 204)
+    private const val BULLET_SYMBOL = "•"
 
-    val SMALL_TEXT_COLOR = DeviceRgb(89, 84, 84)
-    val BLUE_TEXT_COLOR = DeviceCmyk(100, 19, 0, 5)
-    val HYPERLINK_COLOR = DeviceRgb(0, 102, 204)
-    val LINE_SEPARATOR = LineSeparator(SolidLine(1.0f)).setMarginTop(2f)
-    const val BULLET_SYMBOL = "•"
-
-    // todo: Druid Sans
     // todo: big | in contact info
 
     private fun createSectionHeader(headerText: String, headerTextSize: Float): Paragraph {
@@ -34,6 +30,7 @@ object ResumeMaker {
         return NameHeader(
             header = Paragraph(headingDSL.name)
                 .setTextAlignment(TextAlignment.CENTER)
+                .setMarginBottom(-2f) // Less empty space under the name header
                 .setFontSize(formatting.nameHeaderSize)
         )
     }
@@ -43,6 +40,7 @@ object ResumeMaker {
         val contactInfoParagraph = Paragraph(contactInfo)
             .setTextAlignment(TextAlignment.CENTER)
             .setFontSize(formatting.contactInfoSize)
+            .setMarginBottom(-2f) // Less empty space under the contact info
 
         return ContactInfo(
             contactInfoParagraph = contactInfoParagraph
@@ -57,6 +55,7 @@ object ResumeMaker {
             .setTextAlignment(TextAlignment.CENTER)
             .setFontSize(formatting.linkSize)
             .setFontColor(HYPERLINK_COLOR)
+            .setMarginBottom(-8f) // Less empty space under the links
 
         return LinksSection(
             linksParagraph = linksParagraph
@@ -72,7 +71,6 @@ object ResumeMaker {
 
         return SummarySection(
             header = createSectionHeader(summaryDSL.header, formatting.headerSize),
-            lineSeparator = LINE_SEPARATOR,
             summary = summary
         )
     }
@@ -88,7 +86,6 @@ object ResumeMaker {
 
         return SkillSection(
             header = createSectionHeader(skillsDSL.header, formatting.headerSize),
-            lineSeparator = LINE_SEPARATOR,
             skills = skills
         )
     }
@@ -145,11 +142,10 @@ object ResumeMaker {
 
             val bulletSymbolCell = Cell(i+1, 1)
                 .add(Paragraph(BULLET_SYMBOL))
-                .setFontSize(BULLET_SYMBOL_SIZE)
+                .setFontSize(formatting.textSize)
                 .setTextAlignment(TextAlignment.CENTER)
                 .setVerticalAlignment(VerticalAlignment.TOP)
                 .setBorder(Border.NO_BORDER)
-                .setRelativePosition(0f, 0f, 0f, 1f)
                 .setPadding(formatting.cellPadding)
 
 
@@ -190,11 +186,10 @@ object ResumeMaker {
 
             val bulletSymbolCell = Cell(i+1, 1)
                 .add(Paragraph(BULLET_SYMBOL))
-                .setFontSize(BULLET_SYMBOL_SIZE)
+                .setFontSize(formatting.textSize)
                 .setTextAlignment(TextAlignment.CENTER)
                 .setVerticalAlignment(VerticalAlignment.TOP)
                 .setBorder(Border.NO_BORDER)
-                .setRelativePosition(0f, 0f, 0f, 1f)
                 .setPadding(formatting.cellPadding)
 
 
@@ -228,7 +223,6 @@ object ResumeMaker {
 
         return ExperienceSection(
             header = createSectionHeader(experienceDSL.header, formatting.headerSize),
-            lineSeparator = LINE_SEPARATOR,
             jobs = experienceDSL.jobs.map { jobsDSL -> createJob(jobsDSL, formatting) }
         )
     }

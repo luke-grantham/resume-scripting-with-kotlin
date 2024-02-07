@@ -5,6 +5,5 @@ import com.itextpdf.layout.element.Paragraph
 
 class SkillSection(
     val header: Paragraph,
-    val lineSeparator: LineSeparator,
     val skills: kotlin.collections.List<Paragraph>
 )

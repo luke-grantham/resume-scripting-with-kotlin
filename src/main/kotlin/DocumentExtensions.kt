@@ -1,8 +1,11 @@
 package tech.lukegrantham
 
+import com.itextpdf.kernel.pdf.canvas.draw.SolidLine
 import com.itextpdf.layout.Document
+import com.itextpdf.layout.element.LineSeparator
 import tech.lukegrantham.sections.*
-import tech.lukegrantham.ResumeMaker.LINE_SEPARATOR
+
+val LINE_SEPARATOR: LineSeparator = LineSeparator(SolidLine(1.0f)).setMarginTop(2f)
 
 fun Document.add(contactInfo: ContactInfo) {
     this.add(contactInfo.contactInfoParagraph)
@@ -17,7 +20,7 @@ fun Document.add(nameHeader: NameHeader) {
 
 fun Document.add(skillSection: SkillSection) {
     this.add(skillSection.header)
-    this.add(skillSection.lineSeparator.setMarginBottom(4f))
+    this.add(LINE_SEPARATOR.setMarginBottom(4f))
     skillSection.skills.forEach { skillLine ->
         this.add(skillLine)
     }
@@ -25,7 +28,7 @@ fun Document.add(skillSection: SkillSection) {
 
 fun Document.add(experienceSection: ExperienceSection) {
     this.add(experienceSection.header)
-    this.add(experienceSection.lineSeparator)
+    this.add(LINE_SEPARATOR)
     experienceSection.jobs.forEach { job ->
         this.add(job)
     }
@@ -38,7 +41,7 @@ fun Document.add(job: Job) {
 
 fun Document.add(summarySection: SummarySection) {
     this.add(summarySection.header)
-    this.add(summarySection.lineSeparator.setMarginBottom(4f))
+    this.add(LINE_SEPARATOR.setMarginBottom(4f))
     this.add(summarySection.summary)
 }
 
