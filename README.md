@@ -3,36 +3,39 @@ Have you ever wanted to write your resumes in Kotlin? Well now you can!
 
 Through the power of Kotlin Scripting and DSLs we can turn something like the below code into a beatiful resume:
 ```
-ResumeBuilder(fileName = "example.pdf") {
+ResumeBuilder(fileName = "readme.pdf") {
 
     heading {
         name("Luke Grantham")
     }
 
     contactInfo {
-        telephone(555.toString() + " 555 5555")
-        email("asdf@gmail.com")
+        telephone("555 555 5555")
+        email("email@gmail.com")
         location("Atlanta, GA")
+    }
+
+    links {
+        link("http://linkedin.com/in/luke-grantham")
+        link("http://github.com/luke-grantham")
     }
 
     experience {
         job {
             title("Software Engineer")
-            company("Company Two Inc.")
-            from("January 2023")
+            company("Company Inc.")
+            from("April 2023")
             to("Present")
-            bullet("Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ac vehicula nulla.")
-            bullet("Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ac vehicula nulla.")
-            bullet("Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ac vehicula nulla.")
+            bullet("aaaLorem ipsum dolor sit amet, consectetur adipiscing elit. In ac vehicula nulla.")
+            bullet("bbbLorem ipsum dolor sit amet, consectetur adipiscing elit. In ac vehicula nulla.")
         }
         job {
             title("Software Engineer")
-            company("Company One Inc.")
-            from("January 2020")
-            to("December 2023")
-            bullet("Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ac vehicula nulla.")
-            bullet("Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ac vehicula nulla.")
-            bullet("Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ac vehicula nulla.Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ac vehicula nulla.Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ac vehicula nulla.")
+            company("Company2 Inc.")
+            from("January 2015")
+            to("April 2023")
+            bullet("aaaLorem ipsum dolor sit amet, consectetur adipiscing elit. In ac vehicula nulla.")
+            bullet("bbbLorem ipsum dolor sit amet, consectetur adipiscing elit. In ac vehicula nulla.")
         }
     }
 
@@ -42,11 +45,13 @@ ResumeBuilder(fileName = "example.pdf") {
             degree("Bachelor of Computer Science")
             from("May 2013")
             to("May 2015")
-            bullet("Algorithms")
         }
     }
 }
 ```
+
+![alt text](./readme-resume.png?raw=true)
+
 
 # Setup
 
@@ -70,7 +75,7 @@ I wanted to learn more about DSLs in Kotlin, and I realized that I was paying $7
 
 What I wanted to accomplish is:
  - Have one really clean format.
- - Easy to rearrange sections without breaking everything.
+ - Easy to rearrange sections without breaking formatting.
  - Easy to change formatting like text size and spacing between bullets.
  - Generates a PDF.
 

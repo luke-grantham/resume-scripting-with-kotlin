@@ -14,18 +14,18 @@ ResumeBuilder(fileName = "example.pdf") {
     }
 
     heading {
-        name("Mr. Whiskers")
+        name("Luke Grantham")
     }
 
     contactInfo {
-        telephone(555.toString() + " 555 5555")
-        email("mwhiskers@gmail.com")
+        telephone("555 555 5555")
+        email("email@gmail.com")
         location("Atlanta, GA")
     }
 
     links {
-        link("http://linkedin.com/in/mrwhiskers")
-        link("http://github.com/mr-whiskers")
+        link("http://linkedin.com/in/luke-grantham")
+        link("http://github.com/luke-grantham")
     }
 
     summary {
@@ -35,27 +35,27 @@ ResumeBuilder(fileName = "example.pdf") {
 
     skillSection {
         header("SKILLS")
-        skills("Meowing", "Hoop Jumping", "Fighting")
-        skills("Eating", "Sleeping")
-        skills("meow", "meow")
+        skills("Java", "SQL", "Skill1")
+        skills("Databases", "Skill3", "Skill4")
+        skills("Skill5", "Skill6", "Skill7", "Skill8")
     }
 
     experience {
         header("EXPERIENCE")
         job {
-            title("Mascot")
-            company("PetCo")
+            title("Software Engineer")
+            company("Company Inc.")
             from("April 2023")
-            to("December 2023")
+            to("Present")
             bullet("aaaLorem ipsum dolor sit amet, consectetur adipiscing elit. In ac vehicula nulla.")
             bullet("bbbLorem ipsum dolor sit amet, consectetur adipiscing elit. In ac vehicula nulla.")
             bullet("cccLorem ipsum dolor sit amet, consectetur adipiscing elit. In ac vehicula nulla.")
         }
         job {
-            title("House Cat")
-            company("Forever Home")
-            from("December 2023")
-            to("Present")
+            title("Software Engineer")
+            company("Company2 Inc.")
+            from("January 2015")
+            to("April 2023")
             bullet("aaaLorem ipsum dolor sit amet, consectetur adipiscing elit. In ac vehicula nulla.")
             bullet("bbbLorem ipsum dolor sit amet, consectetur adipiscing elit. In ac vehicula nulla.")
             bullet("cccLorem ipsum dolor sit amet, consectetur adipiscing elit. In ac vehicula nulla.Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ac vehicula nulla.Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ac vehicula nulla.")
@@ -63,7 +63,7 @@ ResumeBuilder(fileName = "example.pdf") {
     }
 
     section {
-        header("CERTIFICATIONSSSS")
+        header("CERTIFICATIONS")
         bullet("aaaLorem ipsum dolor sit amet, consectetur adipiscing elit. In ac vehicula nulla.")
         bullet("bbbLorem ipsum dolor sit amet, consectetur adipiscing elit. In ac vehicula nulla.")
         bullet("cccLorem ipsum dolor sit amet, consectetur adipiscing elit. In ac vehicula nulla.")
