@@ -1,4 +1,4 @@
-@file:DependsOn("tech.lukegrantham:resume-maker:1.0")
+@file:DependsOn("tech.lukegrantham:resume-scripting-with-kotlin:1.0")
 
 import tech.lukegrantham.*
 

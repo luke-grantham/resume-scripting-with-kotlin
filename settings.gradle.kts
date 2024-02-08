@@ -1,5 +1,5 @@
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention") version "0.5.0"
 }
-rootProject.name = "resume-maker"
+rootProject.name = "resume-scripting-with-kotlin"
 

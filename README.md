@@ -70,7 +70,7 @@ Your resulting pdf will be in `src/main/scripts/output`
 - Please refer to `example.main.kts` as documentation on the DSL itself. The example script uses all available functionality.
 
 
-# Motivation
+# Why I made this
 I wanted to learn more about DSLs in Kotlin, and I realized that I was paying $70 for site where I could build my resume.
 
 What I wanted to accomplish is:
