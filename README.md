@@ -1,7 +1,7 @@
 # Resume Build Scripts in Kotlin
 Have you ever wanted to write your resumes in Kotlin? Well now you can!
 
-Through the power of Kotlin Scripting and DSLs we can turn something like the below code into a beatiful resume:
+Through the power of Kotlin Scripting and DSLs we can turn the below code into a beautiful resume:
 ```
 ResumeBuilder(fileName = "readme.pdf") {
 
@@ -56,6 +56,8 @@ ResumeBuilder(fileName = "readme.pdf") {
 # Setup
 
 The scripting experience is most pleasant in IntelliJ where you'll get IDE features when writing the Kotlin scripts.
+
+You'll need JDK 8 or higher.
 1. Download IntelliJ
 2. File -> New -> Project From Version Control
 3. Enter the project URL (`https://github.com/luke-grantham/resume-maker.git`) and press Clone:
