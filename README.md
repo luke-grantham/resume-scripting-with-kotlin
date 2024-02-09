@@ -66,6 +66,12 @@ You'll need JDK 8 or higher.
 Now in `src/main/scripts`, you should be able to run the example script `example.main.kts`.
 Your resulting pdf will be in `src/main/scripts/output`
 
+COMMENTS
+1. Need to specify that JAVA_HOME env var needs to be set
+2. Need to install gradle dependencies (i did it VS code so i guess i was missing everything)
+3. Not sure how to run a kotlin script. kotlinc command via bash command line doesn't work
+4. me dummy
+
 ### Make your own resumes
 - To make your own script simply create a new file with the suffix `.main.kts`.
 - All the sections inside the `ResumeBuilder` block are optional.
