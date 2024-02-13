@@ -20,9 +20,9 @@ class Formatting {
     fun cellPadding(s: Number) { cellPadding = s.toFloat() }
     fun linkSize(s: Number) { linkSize = s.toFloat() }
 }
-fun ResumeBuilder.formatting(inner: Formatting.() -> Unit) {
+fun ResumeBuilder.formatting(block: Formatting.() -> Unit) {
     val formatting = Formatting()
-    formatting.inner()
+    formatting.block()
     this.formatting = formatting
 }
 
@@ -41,8 +41,8 @@ interface SectionDSL {
 *
 *   This Generic function can be used to create that functionality for any given SectionDSL implementor
 */
-fun <T: SectionDSL> ResumeBuilder.initSectionPart(section: T, inner: T.() -> Unit) {
-    section.inner()
+fun <T: SectionDSL> ResumeBuilder.initSectionPart(section: T, block: T.() -> Unit) {
+    section.block()
     section.addToDocument(this.document, this.formatting)
 }
 
@@ -56,7 +56,7 @@ class HeadingDSL : SectionDSL {
     fun name(s: String ) { name = s }
 }
 
-fun ResumeBuilder.heading(inner: HeadingDSL.() -> Unit) = initSectionPart(HeadingDSL(), inner)
+fun ResumeBuilder.heading(block: HeadingDSL.() -> Unit) = initSectionPart(HeadingDSL(), block)
 
 
 
@@ -74,7 +74,7 @@ class ContactInfoDSL : SectionDSL {
     fun location(s: String) { location = s }
 }
 
-fun ResumeBuilder.contactInfo(inner: ContactInfoDSL.() -> Unit) = initSectionPart(ContactInfoDSL(), inner)
+fun ResumeBuilder.contactInfo(block: ContactInfoDSL.() -> Unit) = initSectionPart(ContactInfoDSL(), block)
 
 
 
@@ -89,7 +89,7 @@ class LinksSectionDSL : SectionDSL {
     fun link(s: String) = links.add(s)
 }
 
-fun ResumeBuilder.links(inner: LinksSectionDSL.() -> Unit) = initSectionPart(LinksSectionDSL(), inner)
+fun ResumeBuilder.links(block: LinksSectionDSL.() -> Unit) = initSectionPart(LinksSectionDSL(), block)
 
 
 class SkillSectionDSL : SectionDSL {
@@ -104,7 +104,7 @@ class SkillSectionDSL : SectionDSL {
     fun skills(vararg s: String ) { skills.add(s.toList()) }
 }
 
-fun ResumeBuilder.skillSection(inner: SkillSectionDSL.() -> Unit) = initSectionPart(SkillSectionDSL(), inner)
+fun ResumeBuilder.skillSection(block: SkillSectionDSL.() -> Unit) = initSectionPart(SkillSectionDSL(), block)
 
 
 
@@ -122,7 +122,7 @@ class SummarySectionDSL : SectionDSL {
     fun text(s: String ) { text = s }
 }
 
-fun ResumeBuilder.summary(inner: SummarySectionDSL.() -> Unit) = initSectionPart(SummarySectionDSL(), inner)
+fun ResumeBuilder.summary(block: SummarySectionDSL.() -> Unit) = initSectionPart(SummarySectionDSL(), block)
 
 
 
@@ -141,7 +141,7 @@ class ExtraSectionDSL : SectionDSL {
     fun bullet(s: String ) = bullets.add(s)
 }
 
-fun ResumeBuilder.section(inner: ExtraSectionDSL.() -> Unit) = initSectionPart(ExtraSectionDSL(), inner)
+fun ResumeBuilder.section(block: ExtraSectionDSL.() -> Unit) = initSectionPart(ExtraSectionDSL(), block)
 
 
 
@@ -159,8 +159,8 @@ class ExperienceSectionDSL(
     fun header(s: String) { header = s }
 }
 
-fun ResumeBuilder.experience(inner: ExperienceSectionDSL.() -> Unit) = initSectionPart(ExperienceSectionDSL(), inner)
-fun ResumeBuilder.education(inner: ExperienceSectionDSL.() -> Unit) = initSectionPart(ExperienceSectionDSL(header = "EDUCATION"), inner)
+fun ResumeBuilder.experience(block: ExperienceSectionDSL.() -> Unit) = initSectionPart(ExperienceSectionDSL(), block)
+fun ResumeBuilder.education(block: ExperienceSectionDSL.() -> Unit) = initSectionPart(ExperienceSectionDSL(header = "EDUCATION"), block)
 
 
 
@@ -181,13 +181,13 @@ class JobDSL {
     fun to(s: String) { to = s }
     fun bullet(s: String) {  bullets.add(s) }
 }
-fun ExperienceSectionDSL.job(inner: JobDSL.() -> Unit) {
+fun ExperienceSectionDSL.job(block: JobDSL.() -> Unit) {
     // Create the DSL Object
     // Run the function inside the object
     // Add it to the ExperienceSection
     val jobDSL = JobDSL()
 
-    jobDSL.inner()
+    jobDSL.block()
 
     this.jobs.add(jobDSL)
 }
@@ -197,7 +197,7 @@ fun ExperienceSectionDSL.edu(customFunction: JobDSL.() -> Unit) {
 }
 
 
-fun ResumeBuilder(fileName:String, inner: ResumeBuilder.() -> Unit) {
+fun ResumeBuilder(fileName:String, block: ResumeBuilder.() -> Unit) {
 
     File("output").mkdirs()
     val out = "output/$fileName"
@@ -209,7 +209,7 @@ fun ResumeBuilder(fileName:String, inner: ResumeBuilder.() -> Unit) {
 
     resumeBuilder.document.topMargin = 30.0f;
 
-    resumeBuilder.inner()
+    resumeBuilder.block()
 
     resumeBuilder.document.close()
     println("PDF Resume created at $out")
